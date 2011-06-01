@@ -1,0 +1,188 @@
+/**
+ * Specification of JSON-structured data of an tournament.
+ * Version: 0.3
+ * Status: NOT DONE YET.
+ * Date: 2011-06-01
+ * Author: syranez
+ */
+{
+    /**
+     * teams: an object with key-value-pairs of the participating teams
+     *
+     * The key is used for further reference. The value must be an object.
+     * In version 1.0 the value object has to have the property "name".
+     */
+    "teams": {
+        "team-1": {
+           "name": "Südafrika"
+        },
+        "team-2": {
+           "name": "Mexiko"
+        },
+        "team-3": {
+           "name": "Uruguay"
+        },
+        "team-4": {
+           "name": "Frankreich"
+        }
+    },
+
+    /**
+     * places: an object with key-value-pairs of the match locations.
+     *
+     * The key is used for further reference. The value must be an object.
+     * In version 1.0 the value object has to have the property "name".
+     */
+    "places": {
+        "place-1": {
+            "name": "Johannesburg"
+        }
+    },
+
+    /**
+     * groups: an object with key-value-pairs of the tournament groups.
+     *
+     * groups partitionate a tournament in separate pieces. You can define as
+     * much groups as you like.
+     *
+     * Scored points in a group will stay in the group. Thus a team getting in the
+     * next group starts with zero points.
+     *
+     * But you can nest groups. In a nested group points will be aggregated in the top group.
+     * For example: You have a group "A" and a group "B". You want both groups "A" and "B" to have separate points,
+     * but also the whole points an team made in both groups:
+     *
+     *    "top_group": {
+     *        "A": {
+     *            "name": "A"
+     *        },
+     *        "B": {
+     *            "name": "B"
+     *        }
+     *
+     * In group "A" some team made 17 points, in "B" 16 points. In group "top_group" the team made 17 + 16 points => 33 points.
+     *
+     * Example for the German Bundesliga:
+     *
+     * "groups": {
+     *     "Bundesliga": {
+     *         "hinrunde": {
+     *             "name": "Hinrunde"
+     *         },
+     *         "rueckrunde": {
+     *             "name": "Rückrunde"
+     *         }
+     *     }
+     * }
+     *
+     * The key is used for further reference. The value must be an object.
+     * In version 1.0 the value object has to have the property "name".
+     */
+    "groups": {
+        "group-A": {
+            "name": "Gruppe A",
+        },
+        "quarter-finals": {
+            "name": "Viertelfinale"
+        },
+        "semi-finals": {
+            "name": "Halbfinale"
+        },
+        "third-place play-off": {
+            "name": "Spiel um Platz 3"
+        },
+        "final": {
+            "name": "Finale"
+        }
+    },
+
+    /**
+     * matches: an object with key-value-pairs of the matches of the competition.
+     *
+     * The key is the ID of a match.
+     * The value is an object with the matchdata.
+     */
+    "matches": {
+        "1": {
+
+            /**
+             * group: reference to the group
+             */
+            "group:": "group-A",
+
+            /**
+             * home: reference to the team which is first named in the match.
+             *
+             * e.g: "Team1" - "Team2" => home = "Team1", guest = "Team2"
+             */
+            "home": "team-1",
+
+            /**
+             * home: reference to the team which is second named in the match.
+             *
+             * e.g: "Team1" - "Team2" => home = "Team1", guest = "Team2"
+             */
+            "guest": "team-2",
+
+            /**
+             * date of the match
+             */
+            "date": "11.06.2010",
+
+            /**
+             * localized start time of the match
+             */
+            "time": "16:00",
+
+            /**
+             * place: reference to the location of the match
+             */
+            "place". "place-1",
+
+            /**
+             * goals: the scored points.
+             *
+             * all poins will be aggregated but are also alone available.
+             */
+            "goals": {
+                /**
+                 * regular: goals scored in the regular 90 minutes of a game.
+                 */
+                "regular": {
+                    "team-1": 1,
+                    "team-2": 1
+                },
+                /**
+                 * extra_time: goals scored in the 30 minutes extra_time of a game.
+                 * Optional.
+                 */
+                "extra_time": {
+                    "team-1": 0,
+                    "team-2": 0
+                },
+                /**
+                 * penality_shootout: goals scored in the penality shootout of a game.
+                 * Optional.
+                 */
+                "penality_shootout": {
+                    "team-1": 0,
+                    "team-2": 0
+                }
+            }
+        },
+        "64": {
+            "group": "final",
+            "home": "team-2,
+            "guest": "team-3,
+            "date": "11.07.2010",
+            "time": "20:30",
+            "place": "place-1",
+            "goals": {
+                "regular": {
+                    "team-2": 0,
+                    "team-1": 1
+                }
+            }
+        }
+    }
+}
