@@ -80,7 +80,7 @@
      */
     "groups": {
         "group-A": {
-            "name": "Gruppe A",
+            "name": "Gruppe A"
         },
         "quarter-finals": {
             "name": "Viertelfinale"
@@ -137,7 +137,7 @@
             /**
              * place: reference to the location of the match
              */
-            "place". "place-1",
+            "place": "place-1",
 
             /**
              * goals: the scored points.
@@ -172,8 +172,8 @@
         },
         "64": {
             "group": "final",
-            "home": "team-2,
-            "guest": "team-3,
+            "home": "team-2",
+            "guest": "team-3",
             "date": "11.07.2010",
             "time": "20:30",
             "place": "place-1",
