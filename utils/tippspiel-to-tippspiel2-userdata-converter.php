@@ -12,6 +12,13 @@ if ( $_SERVER['argc'] !== 3 ) {
     die('');
 }
 
+$dir = '../data/players/' . $_SERVER['argv'][1];
+if ( ! file_exists($dir) ) {
+    mkdir($dir);
+}
+
+$file = basename($_SERVER['argv'][2]);
+
 try {
     $dc = new TournamentDataConverter($_SERVER['argv'][1]);
     $tournament_model = $dc->convert();
@@ -24,7 +31,8 @@ try {
     $udc = new UserDataConverter($_SERVER['argv'][2]);
     $udc->setTournamentModel($tournament_model);
     $user_model = $udc->convert();
-    echo $user_model->getJson();
+
+    file_put_contents($dir . '/' . $file, $user_model->getJson());
 } catch ( Exception $e ) {
     echo $e->getMessage() . "\n";
     die('');
