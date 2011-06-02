@@ -63,15 +63,17 @@ final class TournamentDataConverter {
         }
     }
 
+    /**
+     * gibt die migrierten Daten als JSON zurück.
+     *
+     */
     public function getJson () {
-        $json = array(
+        return json_encode(array(
             'teams'   => $this->teams,
             'places'  => $this->places,
             'groups'  => $this->groups,
             'matches' => $this->matches,
-        );
-
-        print_r(json_encode($json));
+        ));
     }
 
     private function parse ( $entry ) {
