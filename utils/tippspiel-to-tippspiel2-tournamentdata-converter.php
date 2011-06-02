@@ -13,8 +13,8 @@ if ( $_SERVER['argc'] !== 2 ) {
 
 try {
     $dc = new TournamentDataConverter($_SERVER['argv'][1]);
-    $dc->convert();
-    echo $dc->getJson();
+    $tournament_model = $dc->convert();
+    echo $tournament_model->getJson();
 } catch ( Exception $e ) {
     echo $e->getMessage() . "\n";
     die('');

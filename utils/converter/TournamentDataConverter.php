@@ -1,5 +1,7 @@
 <?php
 
+require('TournamentModel.php');
+
 final class TournamentDataConverter {
 
     /**
@@ -9,28 +11,11 @@ final class TournamentDataConverter {
     private $file;
 
     /**
-     * Veranstaltungsore
-     * @var array
+     * Tournament-Model
+     *
+     * @var TournamentModel
      */
-    private $places;
-
-    /**
-     * Mannschaften 
-     * @var array
-     */
-    private $teams;
-
-    /**
-     * Gruppen 
-     * @var array
-     */
-    private $groups;
-
-    /**
-     * Spiele 
-     * @var array
-     */
-    private $matches;
+    private $model;
 
     /**
      * __construct
@@ -45,10 +30,7 @@ final class TournamentDataConverter {
 
         $this->file = $file;
 
-        $this->places  = array();
-        $this->teams   = array();
-        $this->groups  = array();
-        $this->matches = array();
+        $this->model = new TournamentModel();
     }
 
     public function convert () {
@@ -61,19 +43,8 @@ final class TournamentDataConverter {
         foreach ( $content as $k => $v ) {
             $this->parse($v);
         }
-    }
 
-    /**
-     * gibt die migrierten Daten als JSON zurück.
-     *
-     */
-    public function getJson () {
-        return json_encode(array(
-            'teams'   => $this->teams,
-            'places'  => $this->places,
-            'groups'  => $this->groups,
-            'matches' => $this->matches,
-        ));
+        return $this->model;
     }
 
     private function parse ( $entry ) {
@@ -115,7 +86,7 @@ final class TournamentDataConverter {
             'goals' => $data['goals'],
         );
 
-        $this->matches[$data['match_id']] = $m;
+        $this->model->addMatchById($data['match_id'], $m);
 
         return $data['match_id'];
     }
@@ -126,15 +97,12 @@ final class TournamentDataConverter {
      * @param string Gruppe
      * @return ID der Gruppe 
      */
-    private function generateGroup( $group) {
+    private function generateGroup( $group ) {
         $prefix = "";
 
-        if ( is_array($this->groups) and count($this->groups) ) {
-            foreach ( $this->groups as $k => $v ) {
-                if ( $v['name'] === $group) {
-                    return $k;
-                }
-            }
+        $id = $this->model->getGroupIdByName($group);
+        if ( ! is_null($id) ) {
+            return $id;
         }
 
         $id = $group;
@@ -143,7 +111,7 @@ final class TournamentDataConverter {
             'name' => $group,
         );
 
-        $this->groups[$id] = $g;
+        $this->model->addGroupById($id, $g);
 
         return $id;
     }
@@ -157,21 +125,18 @@ final class TournamentDataConverter {
     private function generateTeam ( $team ) {
         $prefix = "team-";
 
-        if ( is_array($this->teams) and count($this->teams) ) {
-            foreach ( $this->teams as $k => $v ) {
-                if ( $v['name'] === $team) {
-                    return $k;
-                }
-            }
+        $id = $this->model->getTeamIdByName($team);
+        if ( ! is_null($id) ) {
+            return $id;
         }
 
-        $id = $prefix . count($this->teams);
+        $id = $prefix . $this->model->getTeamCount();
 
         $t = array(
             'name' => $team,
         );
 
-        $this->teams[$id] = $t;
+        $this->model->addTeamById($id, $t);
 
         return $id;
     }
@@ -185,21 +150,18 @@ final class TournamentDataConverter {
     private function generatePlace ( $place ) {
         $prefix = "place-";
 
-        if ( is_array($this->places) and count($this->places) ) {
-            foreach ( $this->places as $k => $v ) {
-                if ( $v['name'] === $place ) {
-                    return $k;
-                }
-            }
+        $id = $this->model->getPlaceIdByName($place);
+        if ( ! is_null($id) ) {
+            return $id;
         }
 
-        $id = $prefix . count($this->places);
+        $id = $prefix . $this->model->getPlaceCount();
 
         $p = array(
             'name' => $place,
         );
 
-        $this->places[$id] = $p;
+        $this->model->addPlaceById($id, $p);
 
         return $id;
     }
