@@ -1,0 +1,82 @@
+/**
+ * Specification of JSON-structured data of tournament tipps of an user.
+ * Version 0.1
+ * Status: NOT DONE YET.
+ * Date: 2011-06-02
+ * Author: syranez
+ */
+{
+    /**
+     * account: data of the user
+     *
+     */
+    "account": {
+        "login": "<USER-ID>"
+    },
+
+    /**
+     * bets: tipps of the user
+     *
+     */
+    "bets": {
+        /**
+         * TOURNAMENT-ID: ID of the tournament 
+         *
+         */
+        "<TOURNAMENT-ID>": {
+            /**
+             * MATCH-ID: ID of the match
+             *
+             */
+            "<MATCH-ID>": {
+                /**
+                 * goals: The goals scored.
+                 * Optional.
+                 */
+                "goals": {
+                    /**
+                     * regular: goals scored in the regular 90 minutes of a game.
+                     */
+                    "regular": {
+                        /**
+                         * TEAM-ID: ID of a team
+                         */
+                        "<TEAM-ID-1>": 0,
+                        "<TEAM-ID-2>": 1
+                    },
+                    /**
+                     * extra_time: goals scored in the 30 minutes extra time of a game.
+                     * Optional.
+                     */
+                    "extra_time": {
+                        /**
+                         * TEAM-ID: ID of a team
+                         */
+                        "<TEAM-ID-1>": 0,
+                        "<TEAM-ID-2>": 1
+                    },
+                    /**
+                     * penality_shootout: goals scored in the penality shootout of a game.
+                     * Optional.
+                     */
+                    "penality_shootout": {
+                        /**
+                         * TEAM-ID: ID of a team
+                         */
+                        "<TEAM-ID-1>": 0,
+                        "<TEAM-ID-2>": 1
+                    }
+                },
+
+                /**
+                 * tendency: tipp the winning team
+                 *
+                 * Optional.
+                 */
+                "tendency": {
+                    "winning_team": "<TEAM-ID>"
+                }
+            }
+        }
+    }
+}
