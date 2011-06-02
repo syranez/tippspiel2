@@ -77,7 +77,7 @@ final class DataConverter {
     }
 
     private function parse ( $entry ) {
-        $data = array_map(trim, explode(';', $entry));
+        $data = array_map("trim", explode(';', $entry));
 
         $group_id      = $this->generateGroup($data[1]);
         $place_id      = $this->generatePlace($data[4]);
