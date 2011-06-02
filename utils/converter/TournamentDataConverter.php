@@ -31,6 +31,8 @@ final class TournamentDataConverter {
         $this->file = $file;
 
         $this->model = new TournamentModel();
+
+        $this->model->setId(basename($file));
     }
 
     public function convert () {

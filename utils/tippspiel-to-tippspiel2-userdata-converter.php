@@ -1,8 +1,8 @@
+<?php
 /**
  * konvertiert die Usertipps für ein Tournament aus dem Tippspiel-Format in
  * das Tippspiel2-Format um.
  */
-<?php
 
 require('converter/TournamentDataConverter.php');
 require('converter/UserDataConverter.php');
@@ -13,9 +13,18 @@ if ( $_SERVER['argc'] !== 3 ) {
 }
 
 try {
-    $dc = new UserDataConverter($_SERVER['argv'][1], $_SERVER['argv'][2]);
-    $dc->convert();
-    $dc->getJson();
+    $dc = new TournamentDataConverter($_SERVER['argv'][1]);
+    $tournament_model = $dc->convert();
+} catch ( Exception $e ) {
+    echo $e->getMessage() . "\n";
+    die('');
+}
+
+try {
+    $udc = new UserDataConverter($_SERVER['argv'][2]);
+    $udc->setTournamentModel($tournament_model);
+    $user_model = $udc->convert();
+    echo $user_model->getJson();
 } catch ( Exception $e ) {
     echo $e->getMessage() . "\n";
     die('');

@@ -3,6 +3,13 @@
 final class TournamentModel {
 
     /**
+     * Tournament-ID
+     *
+     * @var string
+     */
+    private $tournament_id;
+
+    /**
      * Veranstaltungsorte
      *
      * @var array
@@ -39,6 +46,24 @@ final class TournamentModel {
         $this->teams   = array();
         $this->groups  = array();
         $this->matches = array();
+    }
+
+    /**
+     * setzt die ID des Tournaments
+     *
+     * @param string $tournament_id
+     */
+    public function setId ( $tournament_id ) {
+        $this->tournament_id = $tournament_id;
+    }
+
+    /**
+     * gibt die ID des Tournaments
+     *
+     * @return string
+     */
+    public function getId () {
+        return $this->tournament_id;
     }
 
     /**
@@ -109,6 +134,22 @@ final class TournamentModel {
                     return $k;
                 }
             }
+        }
+
+        return null;
+    }
+
+    public function getHomeTeamIdByMatchId ( $match_id ) {
+        if ( is_array($this->matches[$match_id]) ) {
+            return $this->matches[$match_id]['home'];
+        }
+
+        return null;
+    }
+
+    public function getGuestTeamIdByMatchId ( $match_id ) {
+        if ( is_array($this->matches[$match_id]) ) {
+            return $this->matches[$match_id]['guest'];
         }
 
         return null;
