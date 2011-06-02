@@ -1,3 +1,7 @@
+/**
+ * konvertiert die Tournament-Daten aus dem Tippspiel-Format in
+ * das Tippspiel2-Format um.
+ */
 <?php
 
 require('converter/TournamentDataConverter.php');
