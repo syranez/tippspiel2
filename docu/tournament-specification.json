@@ -1,6 +1,6 @@
 /**
  * Specification of JSON-structured data of an tournament.
- * Version: 0.3
+ * Version: 0.31
  * Status: NOT DONE YET.
  * Date: 2011-06-01
  * Author: syranez
@@ -13,16 +13,20 @@
      * In version 1.0 the value object has to have the property "name".
      */
     "teams": {
-        "team-1": {
+        /**
+         * TEAM-ID-1: An ID for further reference.
+         * e. g. "team-1"
+         */
+        "<TEAM-ID-1>": {
            "name": "Südafrika"
         },
-        "team-2": {
+        "<TEAM-ID-2>": {
            "name": "Mexiko"
         },
-        "team-3": {
+        "<TEAM-ID-3>": {
            "name": "Uruguay"
         },
-        "team-4": {
+        "<TEAM-ID-4>": {
            "name": "Frankreich"
         }
     },
@@ -34,7 +38,11 @@
      * In version 1.0 the value object has to have the property "name".
      */
     "places": {
-        "place-1": {
+        /**
+         * PLACE-ID-1: An ID for further reference.
+         * e. g. "place-1"
+         */
+        "<PLACE-ID-1>": {
             "name": "Johannesburg"
         }
     },
@@ -79,19 +87,23 @@
      * In version 1.0 the value object has to have the property "name".
      */
     "groups": {
-        "group-A": {
+        /**
+         * GROUP-ID-1: An ID for further reference.
+         * e. g. "group-A"
+         */
+        "<GROUP-ID-1>": {
             "name": "Gruppe A"
         },
-        "quarter-finals": {
+        "<QUARTER-FINALS-ID-1>": {
             "name": "Viertelfinale"
         },
-        "semi-finals": {
+        "<SEMI-FINALS-ID-1>": {
             "name": "Halbfinale"
         },
-        "third-place play-off": {
+        "<THIRD-PLACE PLAY-OFF>": {
             "name": "Spiel um Platz 3"
         },
-        "final": {
+        "<FINAL>": {
             "name": "Finale"
         }
     },
@@ -108,21 +120,21 @@
             /**
              * group: reference to the group
              */
-            "group:": "group-A",
+            "group:": "<GROUP-ID-1>",
 
             /**
              * home: reference to the team which is first named in the match.
              *
              * e.g: "Team1" - "Team2" => home = "Team1", guest = "Team2"
              */
-            "home": "team-1",
+            "home": "<TEAM-ID-1>",
 
             /**
              * home: reference to the team which is second named in the match.
              *
              * e.g: "Team1" - "Team2" => home = "Team1", guest = "Team2"
              */
-            "guest": "team-2",
+            "guest": "<TEAM-ID-2>",
 
             /**
              * date of the match
@@ -137,7 +149,7 @@
             /**
              * place: reference to the location of the match
              */
-            "place": "place-1",
+            "place": "<PLACE-ID-1>",
 
             /**
              * goals: the scored points.
@@ -149,38 +161,38 @@
                  * regular: goals scored in the regular 90 minutes of a game.
                  */
                 "regular": {
-                    "team-1": 1,
-                    "team-2": 1
+                    "<TEAM-ID-1>": 1,
+                    "<TEAM-ID-2>": 1
                 },
                 /**
                  * extra_time: goals scored in the 30 minutes extra_time of a game.
                  * Optional.
                  */
                 "extra_time": {
-                    "team-1": 0,
-                    "team-2": 0
+                    "<TEAM-ID-1>": 0,
+                    "<TEAM-ID-2>": 0
                 },
                 /**
                  * penality_shootout: goals scored in the penality shootout of a game.
                  * Optional.
                  */
                 "penality_shootout": {
-                    "team-1": 0,
-                    "team-2": 0
+                    "<TEAM-ID-1>": 0,
+                    "<TEAM-ID-2>": 0
                 }
             }
         },
         "64": {
-            "group": "final",
-            "home": "team-2",
-            "guest": "team-3",
+            "group": "<FINAL>",
+            "home": "<TEAM-ID-2>",
+            "guest": "<TEAM-ID-3>",
             "date": "11.07.2010",
             "time": "20:30",
-            "place": "place-1",
+            "place": "<PLACE-ID-1>",
             "goals": {
                 "regular": {
-                    "team-2": 0,
-                    "team-1": 1
+                    "<TEAM-ID-2>": 0,
+                    "<TEAM-ID-3>": 1
                 }
             }
         }
