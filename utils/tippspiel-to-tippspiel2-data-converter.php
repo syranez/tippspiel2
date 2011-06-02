@@ -137,7 +137,7 @@ final class DataConverter {
             }
         }
 
-        $id = $prefix . count($this->groups);
+        $id = $group;
 
         $g = array(
             'name' => $group,
